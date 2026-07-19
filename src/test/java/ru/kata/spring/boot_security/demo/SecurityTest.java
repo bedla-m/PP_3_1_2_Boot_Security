@@ -37,13 +37,14 @@ public class SecurityTest {
         assertThat(passwordEncoder.matches(rawPassword, encodedPassword)).isTrue();
         assertThat(passwordEncoder.matches("falsepassword", encodedPassword)).isFalse();
 
-        System.out.println(" Успешно зашифровано!" );
+        System.out.println(" Успешно зашифровано!");
         System.out.println(" Открытый пароль: " + rawPassword);
         System.out.println(" Зашифрованный: " + encodedPassword);
         System.out.println(" matches(admin): " + passwordEncoder.matches(rawPassword, encodedPassword));
         System.out.println(" matches(wrong): " + passwordEncoder.matches("wrongpassword", encodedPassword));
         System.out.println();
     }
+
     @Test
     public void testUserExists() {
         UserDetails user = userDetailsService.loadUserByUsername("admin");
