@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+
+<div style="text-align: right; padding: 10px;">
+    <form th:action="@{/logout}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit">Выйти</button>
+    </form>
+</div>
+
+<body>
+<form th:action="@{/save}" th:object="${user}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+
+    <div>
+        <label>Name:</label>
+        <input type="text" th:field="*{name}"/>
+    </div>
+    <br/>
+
+    <div>
+        <label>Surname:</label>
+        <input type="text" th:field="*{surname}"/>
+    </div>
+    <br/>
+
+    <div>
+        <label>Age:</label>
+        <input type="number" th:field="*{age}"/>
+    </div>
+    <br/>
+
+    <div>
+        <label>Username:</label>
+        <input type="text" th:field="*{username}"/>
+    </div>
+    <br/>
+
+    <div>
+        <label>Password:</label>
+        <input type="text" th:field="*{password}" placeholder="*********"/>
+    </div>
+
+    <label>Roles:</label>
+
+    <div th:each="role : ${allRoles}">
+        <input type="checkbox"
+               name="roleIds"
+               th:value="${role.id}"
+               th:checked="${user.roles.contains(role)}"/>
+        <label th:text="${role.roleName}"></label>
+    </div>
+
+    <button type="submit">save</button>
+</form>
+
+<form th:action="@{/delete}" th:object="${user}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <button type="submit">remove</button>
+</form>
